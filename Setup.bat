@@ -11,7 +11,7 @@ set GRPC_PROGRAMS_DIR=%SCRIPT_FOLDER%\GrpcPrograms\Win64
 set CMAKE_BUILD_DIR=%GRPC_ROOT%\.build
 
 set REMOTE_ORIGIN=https://github.com/grpc/grpc.git
-set BRANCH=v1.23.x
+set BRANCH=v1.48.x
 ::#####################################VARS#############################################################################
 
 :GET_UE_ROOT
@@ -59,6 +59,7 @@ call cmake --build . --target ALL_BUILD --config Release
 :COPY_HEADERS
 echo ">>>>>>>>>> copy headers"
 robocopy "%GRPC_ROOT%\include" "%GRPC_INCLUDE_DIR%\include" /E
+robocopy "%GRPC_ROOT%\third_party\abseil-cpp\absl" "%GRPC_INCLUDE_DIR%\include\absl" /E
 robocopy "%GRPC_ROOT%\third_party\protobuf\src" "%GRPC_INCLUDE_DIR%\third_party\protobuf\src" /E
 
 :PATCH_HEADERS
@@ -72,6 +73,20 @@ robocopy "%CMAKE_BUILD_DIR%\third_party\cares\cares\lib\Release" "%GRPC_LIBRARIE
 robocopy "%CMAKE_BUILD_DIR%\third_party\benchmark\src\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
 robocopy "%CMAKE_BUILD_DIR%\third_party\gflags\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
 robocopy "%CMAKE_BUILD_DIR%\third_party\protobuf\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\base\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\container\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\debugging\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\flags\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\hash\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\numeric\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\profiling\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\random\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\status\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\strings\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\synchronization\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\time\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\abseil-cpp\absl\types\Release" "%GRPC_LIBRARIES_DIR%" *.lib /R:0 /S
+robocopy "%CMAKE_BUILD_DIR%\third_party\re2\Release" "%GRPC_LIBRARIES_DIR%" re2.lib /R:0 /S
 
 :COPY_PROGRAMS
 echo ">>>>>>>>>> copy programs"
